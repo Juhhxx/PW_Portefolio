@@ -1,11 +1,35 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+# Knowledge level choices and list
+BEGGINER = 1
+INTERMEDIATE = 2
+ADVANCED = 3
+
+LEVELS = [
+    (BEGGINER, 'Beginner'),
+    (INTERMEDIATE, 'Intermediate'),
+    (ADVANCED, 'Advanced')
+]
 
 class Teacher(models.Model):
     name = models.CharField(max_length=100)
     photo = models.ImageField(upload_to='teacher_photos/', blank=True, null=True)
     about = models.URLField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+    
+class Technology(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    
+    logo = models.ImageField(upload_to='technology_logos/', blank=True, null=True)
+    link = models.URLField(blank=True, null=True)
+    
+    annotations = models.TextField(blank=True, null=True)
+
+    level = models.IntegerField(choices=LEVELS, default=BEGGINER)
 
     def __str__(self):
         return self.name

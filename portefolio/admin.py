@@ -14,3 +14,5 @@ class TeacherAdmin(admin.ModelAdmin):
 admin.site.register(Teacher, TeacherAdmin)
 
 admin.site.register(Project)
+
+admin.site.register(Technology)
