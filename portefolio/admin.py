@@ -12,3 +12,5 @@ class TeacherAdmin(admin.ModelAdmin):
     list_editable = ['about']
 
 admin.site.register(Teacher, TeacherAdmin)
+
+admin.site.register(Project)

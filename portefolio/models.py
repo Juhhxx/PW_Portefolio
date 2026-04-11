@@ -31,3 +31,18 @@ class UC(models.Model):
     
     def __str__(self):
         return self.name
+
+class Project(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    
+    uc = models.ForeignKey(UC, on_delete=models.CASCADE, related_name='projects')
+    applied_concepts = models.TextField()
+    
+    link = models.URLField(blank=True, null=True)
+    image = models.ImageField(upload_to='project_images/', blank=True, null=True)
+    video = models.URLField(blank=True, null=True)
+    repository = models.URLField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
