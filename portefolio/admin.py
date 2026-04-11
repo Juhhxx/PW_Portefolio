@@ -5,11 +5,13 @@ from .models import *
 class ProjectInline(admin.TabularInline):
     model = Project
 
-class TFCInline(admin.TabularInline):
-    model = TFC
-
 # Course admin
-admin.site.register(Course)
+class CourseAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+    list_display = ['name', 'from_year']
+    list_filter = ['school', 'school__institution']
+    
+admin.site.register(Course, CourseAdmin)
 
 # Certification admin
 admin.site.register(Certification)

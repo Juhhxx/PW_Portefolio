@@ -36,10 +36,28 @@ class Technology(models.Model):
     def __str__(self):
         return self.name
 
-class Education(models.Model):
-    from_year = models.DateField(auto_now_add=False)
-    to_year = models.DateField(auto_now_add=False)
+class Institution(models.Model):
+    name = models.CharField(max_length=100)
+    logo = models.ImageField(upload_to='institution_logos/', blank=True, null=True)
+    link = models.URLField(blank=True, null=True)
     
+    def __str__(self):
+        return self.name
+    
+class School(models.Model):
+    name = models.CharField(max_length=100)
+    acronym = models.CharField(max_length=10)
+    description = models.TextField()
+    logo = models.ImageField(upload_to='school_logos/', blank=True, null=True)
+    institution = models.ForeignKey(Institution, on_delete=models.CASCADE, related_name='schools')
+
+    def __str__(self):
+        return self.name
+
+class Education(models.Model):
+    from_year = models.IntegerField(validators=[MinValueValidator(2000), MaxValueValidator(9999)])
+    to_year = models.IntegerField(validators=[MinValueValidator(2000), MaxValueValidator(9999)])
+
     class Meta:
         abstract = True
 
@@ -48,6 +66,7 @@ class Course(Education):
     description = models.TextField()
     requirements = models.TextField()
     flyer = models.URLField(blank=True, null=True)
+    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='courses')
 
     def __str__(self):
         return self.name
@@ -71,25 +90,6 @@ class Workshop(Education):
     def __str__(self):
         return self.name
     
-class School(models.Model):
-    name = models.CharField(max_length=100)
-    acronym = models.CharField(max_length=10)
-    description = models.TextField()
-    courses = models.ManyToManyField(Course, related_name='schools')
-    logo = models.ImageField(upload_to='school_logos/', blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-class Institution(models.Model):
-    name = models.CharField(max_length=100)
-    logo = models.ImageField(upload_to='institution_logos/', blank=True, null=True)
-    link = models.URLField(blank=True, null=True)
-    schools = models.ManyToManyField(School, related_name='institutions')
-
-    def __str__(self):
-        return self.name
-
 class UC(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
