@@ -99,9 +99,9 @@ class Workshop(Education):
     
 class UC(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField()
-    program = models.TextField()
-    objectives = models.TextField()
+    description = models.TextField(default=' ')
+    program = models.TextField(default=' ')
+    objectives = models.TextField(default=' ')
     
     teachers = models.ManyToManyField(Teacher, related_name='ucs')
 
