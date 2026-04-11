@@ -5,6 +5,10 @@ from .models import *
 class ProjectInline(admin.TabularInline):
     model = Project
 
+class TFCInline(admin.TabularInline):
+    model = TFC
+
+# Course admin
 admin.site.register(Course)
 
 # Certification admin
