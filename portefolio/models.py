@@ -4,6 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Teacher(models.Model):
     name = models.CharField(max_length=100)
+    photo = models.ImageField(upload_to='teacher_photos/', blank=True, null=True)
     about = models.URLField(blank=True, null=True)
 
     def __str__(self):
