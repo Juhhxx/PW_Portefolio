@@ -8,8 +8,8 @@ class ProjectInline(admin.TabularInline):
 # Course admin
 class CourseAdmin(admin.ModelAdmin):
     search_fields = ['name']
-    list_display = ['name', 'from_year']
-    list_filter = ['school', 'school__institution']
+    list_display = ['name', 'from_year', 'to_year', 'school__acronym']
+    list_filter = ['school__acronym', 'school__institution']
     
 admin.site.register(Course, CourseAdmin)
 
