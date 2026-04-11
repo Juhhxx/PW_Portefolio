@@ -3,12 +3,17 @@ from .models import *
 
 admin.site.register(Course)
 
+# Inlines
+class ProjectInline(admin.TabularInline):
+    model = Project
+
 # UC admin
 class UCAdmin(admin.ModelAdmin):
     search_fields = ['name', 'courses__name']
     list_display = ['name']
     list_filter = ['courses']
     filter_horizontal = ['teachers', 'technologies', 'courses']
+    inlines = [ProjectInline]
     
 admin.site.register(UC, UCAdmin)
 
@@ -28,4 +33,11 @@ class TechnologyAdmin(admin.ModelAdmin):
 
 admin.site.register(Technology, TechnologyAdmin)
 
-admin.site.register(Project)
+# Project admin
+class ProjectAdmin(admin.ModelAdmin):
+    search_fields = ['name', 'uc__name']
+    list_display = ['name', 'description', 'uc', 'repository']
+    list_editable = ['description']
+    list_filter = ['uc', 'technologies']
+    
+admin.site.register(Project, ProjectAdmin)
