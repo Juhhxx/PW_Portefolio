@@ -7,7 +7,8 @@ admin.site.register(Course)
 class UCAdmin(admin.ModelAdmin):
     search_fields = ['name', 'courses__name']
     list_display = ['name']
-    list_filter = ['courses']    
+    list_filter = ['courses']
+    filter_horizontal = ['teachers', 'technologies', 'courses']
     
 admin.site.register(UC, UCAdmin)
 
@@ -15,6 +16,7 @@ admin.site.register(UC, UCAdmin)
 class TeacherAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_display = ['name', 'about']
+    list_filter = ['ucs', 'ucs__courses']
 
 admin.site.register(Teacher, TeacherAdmin)
 
