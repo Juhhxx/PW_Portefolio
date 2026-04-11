@@ -51,6 +51,17 @@ class Course(Education):
 
     def __str__(self):
         return self.name
+    
+class Certification(Education):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    link = models.URLField(blank=True, null=True)
+    certificate = models.ImageField(upload_to='certifications/', blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
 
 class UC(models.Model):
     name = models.CharField(max_length=100)
