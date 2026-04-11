@@ -30,7 +30,11 @@ class WorkshopAdmin(admin.ModelAdmin):
 admin.site.register(Workshop, WorkshopAdmin)
 
 # Institution admin
-admin.site.register(Institution)
+class InstitutionAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+    list_display = ['name', 'link']
+    
+admin.site.register(Institution, InstitutionAdmin)
 
 # School admin
 class SchoolAdmin(admin.ModelAdmin):
