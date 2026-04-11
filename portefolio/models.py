@@ -35,8 +35,15 @@ class Technology(models.Model):
 
     def __str__(self):
         return self.name
-    
-class Course(models.Model):
+
+class Education(models.Model):
+    from_year = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    to_year = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+
+    class Meta:
+        abstract = True
+
+class Course(Education):
     name = models.CharField(max_length=100)
     description = models.TextField()
     requirements = models.TextField()
