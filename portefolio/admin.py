@@ -44,4 +44,12 @@ class ProjectAdmin(admin.ModelAdmin):
     
 admin.site.register(Project, ProjectAdmin)
 
-admin.site.register(TFC)
+# TFC admin
+class TFCAdmin(admin.ModelAdmin):
+    search_fields = ['name', 'courses__name']
+    list_display = ['name', 'description', 'link']
+    list_editable = ['description']
+    filter_horizontal = ['courses', 'supervisors', 'technologies']
+    list_filter = ['courses', 'technologies']
+    
+admin.site.register(TFC, TFCAdmin)
