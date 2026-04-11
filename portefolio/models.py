@@ -37,8 +37,11 @@ class Technology(models.Model):
         return self.name
 
 class Education(models.Model):
-    from_year = models.DateTimeField(auto_now_add=False)
-    to_year = models.DateTimeField(auto_now_add=False)
+    from_year = models.DateField(auto_now_add=False)
+    to_year = models.DateField(auto_now_add=False)
+    
+    class Meta:
+        abstract = True
 
 class Course(Education):
     name = models.CharField(max_length=100)

@@ -5,7 +5,6 @@ from .models import *
 class ProjectInline(admin.TabularInline):
     model = Project
 
-admin.site.register(Education)
 admin.site.register(Course)
 
 # Certification admin
