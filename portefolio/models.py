@@ -51,7 +51,7 @@ class UC(models.Model):
     
     teachers = models.ManyToManyField(Teacher, related_name='ucs')
 
-    technologies = models.ManyToManyField(Technology, related_name='ucs')
+    technologies = models.ManyToManyField(Technology, related_name='ucs', blank=True, null=True)
     courses = models.ManyToManyField(Course, related_name='ucs')
     image = models.ImageField(upload_to='uc_images/', blank=True, null=True)
     
