@@ -73,3 +73,22 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
+
+class TFC(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    year = models.IntegerField(validators=[MinValueValidator(2020), MaxValueValidator(2030)])
+    
+    supervisors = models.ManyToManyField(Teacher, related_name='tfcs')
+    courses = models.ManyToManyField(Course, related_name='tfcs')
+    
+    link = models.URLField(blank=True, null=True)
+    image = models.ImageField(upload_to='tfc_images/', blank=True, null=True)
+    pdf = models.URLField(blank=True, null=True)
+    
+    technologies = models.ManyToManyField(Technology, related_name='tfcs')
+    
+    rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)], default=0)
+
+    def __str__(self):
+        return self.name
