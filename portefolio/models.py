@@ -2,11 +2,13 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Knowledge level choices and list
+NONAPPLICABLE = 0
 BEGGINER = 1
 INTERMEDIATE = 2
 ADVANCED = 3
 
 LEVELS = [
+    (NONAPPLICABLE, 'Non Applicable'),
     (BEGGINER, 'Beginner'),
     (INTERMEDIATE, 'Intermediate'),
     (ADVANCED, 'Advanced')
@@ -89,6 +91,18 @@ class TFC(models.Model):
     technologies = models.ManyToManyField(Technology, related_name='tfcs')
     
     rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)], default=0)
+
+    def __str__(self):
+        return self.name
+
+class Skill(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    level = models.IntegerField(choices=LEVELS, default=BEGGINER)
+    
+    technologies = models.ManyToManyField(Technology, related_name='skills', blank=True, null=True)
+    projects = models.ManyToManyField(Project, related_name='skills', blank=True, null=True)
+    tfcs = models.ManyToManyField(TFC, related_name='skills', blank=True, null=True)
 
     def __str__(self):
         return self.name

@@ -53,3 +53,6 @@ class TFCAdmin(admin.ModelAdmin):
     list_filter = ['courses', 'technologies']
     
 admin.site.register(TFC, TFCAdmin)
+
+# Skill admin
+admin.site.register(Skill)
