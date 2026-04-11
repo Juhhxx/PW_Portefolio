@@ -39,5 +39,7 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = ['name', 'description', 'uc', 'repository']
     list_editable = ['description']
     list_filter = ['uc', 'technologies']
+    filter_horizontal = ['technologies']
+    
     
 admin.site.register(Project, ProjectAdmin)
