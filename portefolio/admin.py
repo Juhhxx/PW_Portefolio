@@ -17,6 +17,12 @@ class UCAdmin(admin.ModelAdmin):
     
 admin.site.register(UC, UCAdmin)
 
+# Certification admin
+admin.site.register(Certification)
+
+# Workshop admin
+admin.site.register(Workshop)
+
 # Teacher admin
 class TeacherAdmin(admin.ModelAdmin):
     search_fields = ['name']
