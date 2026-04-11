@@ -48,6 +48,7 @@ class School(models.Model):
     name = models.CharField(max_length=100)
     acronym = models.CharField(max_length=10)
     description = models.TextField()
+    link = models.URLField(blank=True, null=True)
     logo = models.ImageField(upload_to='school_logos/', blank=True, null=True)
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE, related_name='schools')
 

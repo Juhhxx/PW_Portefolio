@@ -33,7 +33,12 @@ admin.site.register(Workshop, WorkshopAdmin)
 admin.site.register(Institution)
 
 # School admin
-admin.site.register(School)
+class SchoolAdmin(admin.ModelAdmin):
+    search_fields = ['name', 'acronym', 'institution__name']
+    list_display = ['acronym', 'name', 'institution', 'link']
+    list_filter = ['institution']
+    
+admin.site.register(School, SchoolAdmin)
 
 # UC admin
 class UCAdmin(admin.ModelAdmin):
