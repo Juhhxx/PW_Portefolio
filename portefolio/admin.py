@@ -14,7 +14,12 @@ class CourseAdmin(admin.ModelAdmin):
 admin.site.register(Course, CourseAdmin)
 
 # Certification admin
-admin.site.register(Certification)
+class CertificationAdmin(admin.ModelAdmin):
+    search_fields = ['name', 'institution__name']
+    list_display = ['name', 'from_year', 'institution__name', 'certificate']
+    list_filter = ['institution__name']
+    
+admin.site.register(Certification, CertificationAdmin)
 
 # Workshop admin
 admin.site.register(Workshop)
