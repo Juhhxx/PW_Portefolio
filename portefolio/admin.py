@@ -13,6 +13,12 @@ admin.site.register(Certification)
 # Workshop admin
 admin.site.register(Workshop)
 
+# Institution admin
+admin.site.register(Institution)
+
+# School admin
+admin.site.register(School)
+
 # UC admin
 class UCAdmin(admin.ModelAdmin):
     search_fields = ['name', 'courses__name']

@@ -68,6 +68,25 @@ class Workshop(Education):
 
     def __str__(self):
         return self.name
+    
+class School(models.Model):
+    name = models.CharField(max_length=100)
+    acronym = models.CharField(max_length=10)
+    description = models.TextField()
+    courses = models.ManyToManyField(Course, related_name='schools')
+    logo = models.ImageField(upload_to='school_logos/', blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+class Institution(models.Model):
+    name = models.CharField(max_length=100)
+    logo = models.ImageField(upload_to='institution_logos/', blank=True, null=True)
+    link = models.URLField(blank=True, null=True)
+    schools = models.ManyToManyField(School, related_name='institutions')
+
+    def __str__(self):
+        return self.name
 
 class UC(models.Model):
     name = models.CharField(max_length=100)
