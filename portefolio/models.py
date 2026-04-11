@@ -75,8 +75,11 @@ class Certification(Education):
     name = models.CharField(max_length=100)
     description = models.TextField()
     institution = models.ForeignKey('Institution', on_delete=models.CASCADE, related_name='certifications')
+    
     link = models.URLField(blank=True, null=True)
     certificate = models.ImageField(upload_to='certifications/', blank=True, null=True)
+    
+    technologies = models.ManyToManyField(Technology, related_name='certifications', blank=True)
 
     def __str__(self):
         return self.name
@@ -85,7 +88,10 @@ class Workshop(Education):
     name = models.CharField(max_length=100)
     description = models.TextField()
     institution = models.ForeignKey('Institution', on_delete=models.CASCADE, related_name='workshops')
+    
     link = models.URLField(blank=True, null=True)
+    
+    technologies = models.ManyToManyField(Technology, related_name='workshops', blank=True)
 
     def __str__(self):
         return self.name

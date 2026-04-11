@@ -7,7 +7,7 @@ class ProjectInline(admin.TabularInline):
 
 # Course admin
 class CourseAdmin(admin.ModelAdmin):
-    search_fields = ['name']
+    search_fields = ['name', 'school__name', 'school__acronym', 'school__institution']
     list_display = ['name', 'from_year', 'to_year', 'school__acronym']
     list_filter = ['school__acronym', 'school__institution']
     
@@ -15,14 +15,19 @@ admin.site.register(Course, CourseAdmin)
 
 # Certification admin
 class CertificationAdmin(admin.ModelAdmin):
-    search_fields = ['name', 'institution__name']
-    list_display = ['name', 'from_year', 'institution__name', 'certificate']
-    list_filter = ['institution__name']
+    search_fields = ['name', 'institution']
+    list_display = ['name', 'from_year', 'institution', 'certificate']
+    list_filter = ['institution']
     
 admin.site.register(Certification, CertificationAdmin)
 
 # Workshop admin
-admin.site.register(Workshop)
+class WorkshopAdmin(admin.ModelAdmin):
+    search_fields = ['name', 'institution']
+    list_display = ['name', 'from_year', 'institution']
+    list_filter = ['institution']
+    
+admin.site.register(Workshop, WorkshopAdmin)
 
 # Institution admin
 admin.site.register(Institution)
