@@ -137,7 +137,7 @@ class TFC(models.Model):
     courses = models.ManyToManyField(Course, related_name='tfcs')
     
     link = models.URLField(blank=True, null=True)
-    image = models.ImageField(upload_to='tfc_images/', blank=True, null=True)
+    image = models.URLField(blank=True, null=True)
     pdf = models.URLField(blank=True, null=True)
     
     technologies = models.ManyToManyField(Technology, related_name='tfcs')
