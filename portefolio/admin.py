@@ -7,7 +7,7 @@ class ProjectInline(admin.TabularInline):
 
 # Course admin
 class CourseAdmin(admin.ModelAdmin):
-    search_fields = ['name', 'school__name', 'school__acronym', 'school__institution']
+    search_fields = ['name']
     list_display = ['name', 'from_year', 'to_year', 'school__acronym']
     list_filter = ['school__acronym', 'school__institution']
     
@@ -15,7 +15,7 @@ admin.site.register(Course, CourseAdmin)
 
 # Certification admin
 class CertificationAdmin(admin.ModelAdmin):
-    search_fields = ['name', 'institution']
+    search_fields = ['name']
     list_display = ['name', 'from_year', 'institution', 'certificate']
     list_filter = ['institution']
     
@@ -23,7 +23,7 @@ admin.site.register(Certification, CertificationAdmin)
 
 # Workshop admin
 class WorkshopAdmin(admin.ModelAdmin):
-    search_fields = ['name', 'institution']
+    search_fields = ['name']
     list_display = ['name', 'from_year', 'institution']
     list_filter = ['institution']
     
@@ -34,7 +34,7 @@ admin.site.register(Institution)
 
 # School admin
 class SchoolAdmin(admin.ModelAdmin):
-    search_fields = ['name', 'acronym', 'institution__name']
+    search_fields = ['name']
     list_display = ['acronym', 'name', 'institution', 'link']
     list_filter = ['institution']
     
@@ -42,7 +42,7 @@ admin.site.register(School, SchoolAdmin)
 
 # UC admin
 class UCAdmin(admin.ModelAdmin):
-    search_fields = ['name', 'courses__name']
+    search_fields = ['name']
     list_display = ['name']
     list_filter = ['courses']
     filter_horizontal = ['teachers', 'technologies', 'courses']
@@ -68,7 +68,7 @@ admin.site.register(Technology, TechnologyAdmin)
 
 # Project admin
 class ProjectAdmin(admin.ModelAdmin):
-    search_fields = ['name', 'uc__name']
+    search_fields = ['name']
     list_display = ['name', 'description', 'uc', 'repository']
     list_editable = ['description']
     list_filter = ['uc', 'technologies']
@@ -79,7 +79,7 @@ admin.site.register(Project, ProjectAdmin)
 
 # TFC admin
 class TFCAdmin(admin.ModelAdmin):
-    search_fields = ['name', 'courses__name']
+    search_fields = ['name']
     list_display = ['name', 'description', 'link']
     list_editable = ['description']
     filter_horizontal = ['courses', 'supervisors', 'technologies']
@@ -88,4 +88,10 @@ class TFCAdmin(admin.ModelAdmin):
 admin.site.register(TFC, TFCAdmin)
 
 # Skill admin
-admin.site.register(Skill)
+class SkillAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+    list_display = ['name', 'description', 'level']
+    list_editable = ['description', 'level']
+    filter_horizontal = ['technologies', 'projects', 'tfcs']
+    
+admin.site.register(Skill, SkillAdmin)
