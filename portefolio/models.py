@@ -24,7 +24,7 @@ class Teacher(models.Model):
     
 class Technology(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.TextField(default=' ')
     
     logo = models.ImageField(upload_to='technology_logos/', blank=True, null=True)
     link = models.URLField(blank=True, null=True)
@@ -56,16 +56,16 @@ class School(models.Model):
         return self.name
 
 class Education(models.Model):
-    from_year = models.IntegerField(validators=[MinValueValidator(2000), MaxValueValidator(9999)])
-    to_year = models.IntegerField(validators=[MinValueValidator(2000), MaxValueValidator(9999)])
+    from_year = models.IntegerField(validators=[MinValueValidator(2000), MaxValueValidator(9999)], default=2025)
+    to_year = models.IntegerField(validators=[MinValueValidator(2000), MaxValueValidator(9999)], default=2025)
 
     class Meta:
         abstract = True
 
 class Course(Education):
     name = models.CharField(max_length=100)
-    description = models.TextField()
-    requirements = models.TextField()
+    description = models.TextField(default=' ')
+    requirements = models.TextField(default=' ')
     flyer = models.URLField(blank=True, null=True)
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='courses')
 
