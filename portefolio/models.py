@@ -62,7 +62,7 @@ class Certification(Education):
         return self.name
 
 class Workshop(Education):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=101)
     description = models.TextField()
     link = models.URLField(blank=True, null=True)
 
@@ -146,6 +146,7 @@ class Skill(models.Model):
     technologies = models.ManyToManyField(Technology, related_name='skills', blank=True)
     projects = models.ManyToManyField(Project, related_name='skills', blank=True)
     tfcs = models.ManyToManyField(TFC, related_name='skills', blank=True)
+
 
     def __str__(self):
         return self.name
