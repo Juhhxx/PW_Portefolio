@@ -51,6 +51,7 @@ class UC(models.Model):
     
     teachers = models.ManyToManyField(Teacher, related_name='ucs')
 
+    technologies = models.ManyToManyField(Technology, related_name='ucs')
     courses = models.ManyToManyField(Course, related_name='ucs')
     image = models.ImageField(upload_to='uc_images/', blank=True, null=True)
     
@@ -63,6 +64,7 @@ class Project(models.Model):
     
     uc = models.ForeignKey(UC, on_delete=models.CASCADE, related_name='projects')
     applied_concepts = models.TextField()
+    technologies = models.ManyToManyField(Technology, related_name='projects')
     
     link = models.URLField(blank=True, null=True)
     image = models.ImageField(upload_to='project_images/', blank=True, null=True)
