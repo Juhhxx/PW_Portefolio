@@ -37,11 +37,8 @@ class Technology(models.Model):
         return self.name
 
 class Education(models.Model):
-    from_year = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    to_year = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-
-    class Meta:
-        abstract = True
+    from_year = models.DateTimeField(auto_now_add=False)
+    to_year = models.DateTimeField(auto_now_add=False)
 
 class Course(Education):
     name = models.CharField(max_length=100)
@@ -77,7 +74,7 @@ class UC(models.Model):
     
     teachers = models.ManyToManyField(Teacher, related_name='ucs')
 
-    technologies = models.ManyToManyField(Technology, related_name='ucs', blank=True, null=True)
+    technologies = models.ManyToManyField(Technology, related_name='ucs', blank=True)
     courses = models.ManyToManyField(Course, related_name='ucs')
     image = models.ImageField(upload_to='uc_images/', blank=True, null=True)
     
@@ -124,9 +121,9 @@ class Skill(models.Model):
     description = models.TextField()
     level = models.IntegerField(choices=LEVELS, default=BEGGINER)
     
-    technologies = models.ManyToManyField(Technology, related_name='skills', blank=True, null=True)
-    projects = models.ManyToManyField(Project, related_name='skills', blank=True, null=True)
-    tfcs = models.ManyToManyField(TFC, related_name='skills', blank=True, null=True)
+    technologies = models.ManyToManyField(Technology, related_name='skills', blank=True)
+    projects = models.ManyToManyField(Project, related_name='skills', blank=True)
+    tfcs = models.ManyToManyField(TFC, related_name='skills', blank=True)
 
     def __str__(self):
         return self.name

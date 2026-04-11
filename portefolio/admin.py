@@ -1,11 +1,18 @@
 from django.contrib import admin
 from .models import *
 
-admin.site.register(Course)
-
 # Inlines
 class ProjectInline(admin.TabularInline):
     model = Project
+
+admin.site.register(Education)
+admin.site.register(Course)
+
+# Certification admin
+admin.site.register(Certification)
+
+# Workshop admin
+admin.site.register(Workshop)
 
 # UC admin
 class UCAdmin(admin.ModelAdmin):
@@ -16,12 +23,6 @@ class UCAdmin(admin.ModelAdmin):
     inlines = [ProjectInline]
     
 admin.site.register(UC, UCAdmin)
-
-# Certification admin
-admin.site.register(Certification)
-
-# Workshop admin
-admin.site.register(Workshop)
 
 # Teacher admin
 class TeacherAdmin(admin.ModelAdmin):
