@@ -2,6 +2,13 @@ from django.contrib import admin
 from .models import *
 
 admin.site.register(Course)
-admin.site.register(UC)
-admin.site.register(Teacher)
 
+admin.site.register(UC)
+
+# Teacher admin
+class TeacherAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+    list_display = ['name', 'about']
+    list_editable = ['about']
+
+admin.site.register(Teacher, TeacherAdmin)
