@@ -1,0 +1,49 @@
+{% extends 'portfolio/layout.html' %}
+
+{% block content %}
+<style>
+    li h4{
+        margin: 5 0 5 0;
+    }
+    li h5{
+        margin: 5 0 15 0;
+    }
+</style>
+
+<h2>{{ course }}</h2>
+<h3>{{ course.school.institution }} - {{ course.school.acronym }}</h3>
+
+{% if course.flyer %}
+    <a href='{{ course.flyer }}'>Course flyer</a>
+{% endif %}
+
+<h4>Duration</h4>
+<p>{{ course.from_year }} - {{ course.to_year }}</p>
+
+{% if course.image %}
+    <h4>Image</h4>
+    <img src='{{ course.image.url }}' width="300px">
+{% endif %}
+
+<h4>Description</h4>
+<p>{{ course.description }}</p>
+
+<h4>UCs</h4>
+<ul>
+    {% for uc in course.ucs.all %}
+        <li>
+            <h4>{{ uc }} - {{ uc.year }}º year {{ uc.semester }}º semester</h4>
+            <p>{{ uc.description }}</p>
+            <button>See More</button>
+        </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'portfolio:edit_course' course.id %}">
+    <button>Edit Course</button>
+</a>
+<a href="{% url 'portfolio:delete_course' course.id %}">
+    <button>Delete Course</button>
+</a>
+
+{% endblock %}

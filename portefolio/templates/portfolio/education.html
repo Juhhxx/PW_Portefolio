@@ -1,0 +1,71 @@
+{% extends 'portfolio/layout.html' %}
+
+{% block content %}
+<style>
+    li h4{
+        margin: 5 0 5 0;
+    }
+    li h5{
+        margin: 5 0 15 0;
+    }
+</style>
+
+<h2>Education</h2>
+    <p> 
+        These are my current educational degrees.
+    </p>
+
+    <h3>Courses</h3>
+    <ul>
+        {% for course in courses %}
+            <li>
+                <h4>{{ course }} - {{ course.school.institution }} ({{ course.school.acronym }})</h4>
+                <h5>{{ course.from_year }} - {{ course.to_year }}</h5>
+                <p>{{ course.description }}</p>
+                <a href="{% url 'portfolio:course' course.id %}">
+                    <button>See More</button>
+                </a>
+                {% if gestor %}
+                    <a href="{% url 'portfolio:edit_course' course.id %}">
+                        <button>Edit Course</button>
+                    </a>
+                    <a href="{% url 'portfolio:delete_course' course.id %}">
+                        <button>Delete Course</button>
+                    </a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'portfolio:new_course' %}">
+        <button>Add New Course</button>
+    </a>
+
+    <h3>Certifications</h3>
+    <ul>
+        {% for certification in certifications %}
+            <li>
+                <h4>{{ certification }} - {{ certification.institution }}</h4>
+                <h5>{{ certification.from_year }}</h5>
+                <p>{{ certification.description }}</p>
+                <a href="">
+                    <button>See More</button>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Workshops</h3>
+    <ul>
+        {% for workshop in workshops %}
+            <li>
+                <h4>{{ workshop }} - {{ workshop.institution }}</h4>
+                <h5>{{ course.from_year }}</h5>
+                <p>{{ workshop.description }}</p>
+                <a href="">
+                    <button>See More</button>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

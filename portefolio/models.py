@@ -66,6 +66,7 @@ class Course(Education):
     name = models.CharField(max_length=100)
     description = models.TextField(default=' ')
     requirements = models.TextField(default=' ')
+    image = models.ImageField(upload_to='course_images/', blank=True, null=True)
     flyer = models.URLField(blank=True, null=True)
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='courses')
 
@@ -99,6 +100,8 @@ class Workshop(Education):
     
 class UC(models.Model):
     name = models.CharField(max_length=100)
+    year = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], default=1)
+    semester = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(2)], default=1)
     description = models.TextField(default=' ')
     program = models.TextField(default=' ')
     objectives = models.TextField(default=' ')
