@@ -50,25 +50,51 @@
                 <h4>{{ certification }} - {{ certification.institution }}</h4>
                 <h5>{{ certification.from_year }}</h5>
                 <p>{{ certification.description }}</p>
-                <a href="">
+                <a href="{% url 'portfolio:certification' certification.id %}">
                     <button>See More</button>
                 </a>
+                {% if gestor %}
+                    <a href="{% url 'portfolio:edit_certification' certification.id %}">
+                        <button>Edit Certification</button>
+                    </a>
+                    <a href="{% url 'portfolio:delete_certification' certification.id %}">
+                        <button>Delete Certification</button>
+                    </a>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
+    {% if gestor %}
+        <a href="{% url 'portfolio:new_certification' %}">
+            <button>Add New Certification</button>
+        </a>
+    {% endif %}
 
     <h3>Workshops</h3>
     <ul>
         {% for workshop in workshops %}
             <li>
                 <h4>{{ workshop }} - {{ workshop.institution }}</h4>
-                <h5>{{ course.from_year }}</h5>
+                <h5>{{ workshop.from_year }}</h5>
                 <p>{{ workshop.description }}</p>
-                <a href="">
+                <a href="{% url 'portfolio:workshop' workshop.id %}">
                     <button>See More</button>
                 </a>
+                {% if gestor %}
+                    <a href="{% url 'portfolio:edit_workshop' workshop.id %}">
+                        <button>Edit Workshop</button>
+                    </a>
+                    <a href="{% url 'portfolio:delete_workshop' workshop.id %}">
+                        <button>Delete Workshop</button>
+                    </a>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
+    {% if gestor %}
+        <a href="{% url 'portfolio:new_workshop' %}">
+            <button>Add New Workshop</button>
+        </a>
+    {% endif %}
 
 {% endblock %}

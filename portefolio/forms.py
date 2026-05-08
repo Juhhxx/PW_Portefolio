@@ -2,7 +2,7 @@ from django import forms
 from .models import *
 
 class CourseForm(forms.ModelForm):
-
+    
     class Meta:
         model = Course
         fields = '__all__'
@@ -15,5 +15,15 @@ class CourseForm(forms.ModelForm):
         
         help_texts = {
         'retrato': 'Use an image with less than 100kB', 
-        }   
+        } 
+class CertificationForm(forms.ModelForm):
 
+    class Meta:
+        model = Certification
+        fields = '__all__'
+
+class WorkshopForm(forms.ModelForm):
+
+    class Meta:
+        model = Workshop
+        fields = '__all__'

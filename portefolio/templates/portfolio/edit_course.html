@@ -1,7 +1,7 @@
 {% extends 'portfolio/layout.html' %}
 
 {% block content %}
-    <h3>Edita Autor</h3>
+    <h3>Edit Course</h3>
     
     <form action="{% url 'portfolio:edit_course' course.id %}" method="post" enctype='multipart/form-data'>
       {% csrf_token %}
@@ -10,7 +10,7 @@
     </form>  
     
     <a href="{% url 'portfolio:course' course.id %}">
-      <button>Cancelar</button>
+      <button>Cancel</button>
     </a>
 
     <a href="{% url 'portfolio:delete_course' course.id %}">

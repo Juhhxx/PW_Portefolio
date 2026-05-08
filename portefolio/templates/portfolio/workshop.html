@@ -1,0 +1,24 @@
+{% extends 'portfolio/layout.html' %}
+
+{% block content %}
+<h2>{{ workshop }}</h2>
+<h3>from {{ workshop.institution }}</h3>
+<p>{{ workshop.from_year }}</p>
+
+{% if workshop.link %}
+    <a href='{{ workshop.link }}'>Workshop link</a>
+{% endif %}
+
+<h4>Description</h4>
+<p>{{ workshop.description }}</p>
+
+{% if gestor %}
+    <a href="{% url 'portfolio:edit_workshop' workshop.id %}">
+        <button>Edit Workshop</button>
+    </a>
+    <a href="{% url 'portfolio:delete_workshopn' workshop.id %}">
+        <button>Delete Workshop</button>
+    </a>
+{% endif %}
+
+{% endblock %}

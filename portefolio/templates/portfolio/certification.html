@@ -1,0 +1,29 @@
+{% extends 'portfolio/layout.html' %}
+
+{% block content %}
+<h2>{{ certification }}</h2>
+<h3>from {{ certification.institution }}</h3>
+<p>{{ certification.from_year }}</p>
+
+{% if certification.link %}
+    <a href='{{ certification.link }}'>Certification link</a>
+{% endif %}
+
+{% if certification.certificate %}
+    <h4>Certificate</h4>
+    <img src='{{ certification.certificate.url }}' width="300px">
+{% endif %}
+
+<h4>Description</h4>
+<p>{{ certification.description }}</p>
+
+{% if gestor %}
+    <a href="{% url 'portfolio:edit_certification' certification.id %}">
+        <button>Edit Certification</button>
+    </a>
+    <a href="{% url 'portfolio:delete_certification' certification.id %}">
+        <button>Delete Certification</button>
+    </a>
+{% endif %}
+
+{% endblock %}

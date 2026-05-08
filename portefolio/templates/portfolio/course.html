@@ -39,11 +39,13 @@
     {% endfor %}
 </ul>
 
-<a href="{% url 'portfolio:edit_course' course.id %}">
-    <button>Edit Course</button>
-</a>
-<a href="{% url 'portfolio:delete_course' course.id %}">
-    <button>Delete Course</button>
-</a>
+{% if gestor %}
+    <a href="{% url 'portfolio:edit_course' course.id %}">
+        <button>Edit Course</button>
+    </a>
+    <a href="{% url 'portfolio:delete_course' course.id %}">
+        <button>Delete Course</button>
+    </a>
+{% endif %}
 
 {% endblock %}
