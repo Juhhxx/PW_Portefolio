@@ -27,3 +27,9 @@ class WorkshopForm(forms.ModelForm):
     class Meta:
         model = Workshop
         fields = '__all__'
+
+class UCForm(forms.ModelForm):
+
+    class Meta:
+        model = UC
+        fields = '__all__'

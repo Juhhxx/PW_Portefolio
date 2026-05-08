@@ -33,11 +33,25 @@
     {% for uc in course.ucs.all %}
         <li>
             <h4>{{ uc }} - {{ uc.year }}º year {{ uc.semester }}º semester</h4>
-            <p>{{ uc.description }}</p>
-            <button>See More</button>
+            <a href="{% url 'portfolio:uc' uc.id %}">
+                <button>See More</button>
+            </a>
+            {% if gestor %}
+                <a href="{% url 'portfolio:edit_uc' uc.id %}">
+                    <button>Edit UC</button>
+                </a>
+                <a href="{% url 'portfolio:delete_uc' uc.id %}">
+                    <button>Delete UC</button>
+                </a>
+            {% endif %}
         </li>
     {% endfor %}
 </ul>
+{% if gestor %}
+    <a href="{% url 'portfolio:new_uc' %}">
+        <button>Add UC</button>
+    </a>
+{% endif %}
 
 {% if gestor %}
     <a href="{% url 'portfolio:edit_course' course.id %}">

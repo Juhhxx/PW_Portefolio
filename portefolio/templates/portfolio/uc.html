@@ -1,0 +1,39 @@
+{% extends 'portfolio/layout.html' %}
+
+{% block content %}
+<h2>{{ uc }}</h2>
+<p>{{ uc.year }}º year {{ uc.semester }} semester</p>
+
+{% if uc.image %}
+    <h4>Image</h4>
+    <img src='{{ uc.image.url }}' width="300px">
+{% endif %}
+
+<h4>Description</h4>
+<p>{{ uc.description }}</p>
+
+<h4>Program</h4>
+<p>{{ uc.program }}</p>
+
+<h4>Objectives</h4>
+<p>{{ uc.objectives }}</p>
+
+<h4>Teachers</h4>
+<ul>
+    {% for teacher in uc.teachers.all %}
+        <li>
+            <h4>{{ teacher }}</h4>
+        </li>
+    {% endfor %}
+</ul>
+
+{% if gestor %}
+    <a href="{% url 'portfolio:edit_uc' uc.id %}">
+        <button>Edit UC</button>
+    </a>
+    <a href="{% url 'portfolio:delete_uc' uc.id %}">
+        <button>Delete UC</button>
+    </a>
+{% endif %}
+
+{% endblock %}

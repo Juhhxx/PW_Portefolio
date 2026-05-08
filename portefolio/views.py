@@ -22,7 +22,10 @@ def educations_view(request):
 
 def course_view(request, course_id):
 
-    context = { 'course': Course.objects.get(id = course_id)}
+    context = { 
+        'course': Course.objects.get(id = course_id),
+        'gestor': request.user.groups.filter(name='gestor_portefolio').exists(),
+    }
 
     return render(request, 'portfolio/course.html', context)
 
@@ -46,7 +49,7 @@ def edit_course_view(request, course_id):
         form = CourseForm(request.POST or None, request.FILES, instance=course)
         if form.is_valid():
             form.save()
-            return redirect('portfolio:educations')
+            return redirect('portfolio:course', course_id = course.id)
     else:
         form = CourseForm(instance=course)
         
@@ -64,7 +67,10 @@ def delete_course_view(request, course_id):
 
 def certification_view(request, certification_id):
 
-    context = { 'certification': Certification.objects.get(id = certification_id)}
+    context = {
+        'certification': Certification.objects.get(id = certification_id),
+        'gestor': request.user.groups.filter(name='gestor_portefolio').exists(),
+    }
 
     return render(request, 'portfolio/certification.html', context)
 
@@ -88,7 +94,7 @@ def edit_certification_view(request, certification_id):
         form = CertificationForm(request.POST or None, request.FILES, instance=certification)
         if form.is_valid():
             form.save()
-            return redirect('portfolio:educations')
+            return redirect('portfolio:certification', certification_id = certification.id)
     else:
         form = CertificationForm(instance=certification)
         
@@ -106,7 +112,10 @@ def delete_certification_view(request, certification_id):
 
 def workshop_view(request, workshop_id):
 
-    context = { 'workshop': Workshop.objects.get(id = workshop_id)}
+    context = {
+        'workshop': Workshop.objects.get(id = workshop_id),
+        'gestor': request.user.groups.filter(name='gestor_portefolio').exists(),
+    }
 
     return render(request, 'portfolio/workshop.html', context)
 
@@ -130,7 +139,7 @@ def edit_workshop_view(request, workshop_id):
         form = WorkshopForm(request.POST or None, request.FILES, instance=workshop)
         if form.is_valid():
             form.save()
-            return redirect('portfolio:educations')
+            return redirect('portfolio:workshop', workshop_id = workshop.id)
     else:
         form = WorkshopForm(instance=workshop)
         
@@ -143,3 +152,49 @@ def delete_workshop_view(request, workshop_id):
     workshop = Workshop.objects.get(id = workshop_id)
     workshop.delete()
     return redirect('portfolio:educations')
+
+# UC views
+
+def uc_view(request, uc_id):
+
+    context = {
+        'uc': UC.objects.get(id = uc_id),
+        'gestor': request.user.groups.filter(name='gestor_portefolio').exists(),
+    }
+
+    return render(request, 'portfolio/uc.html', context)
+
+@login_required
+def new_uc_view(request):
+
+    form = UCForm(request.POST or None, request.FILES)
+    if form.is_valid():
+        uc = form.save()
+        return redirect('portfolio:course', course_id = uc.course.id)
+    
+    context = {'form': form}
+    return render(request, 'portfolio/new_uc.html', context)
+
+@login_required
+def edit_uc_view(request, uc_id):
+
+    uc = UC.objects.get(id = uc_id)
+    
+    if request.POST:
+        form = UCForm(request.POST or None, request.FILES, instance=uc)
+        if form.is_valid():
+            form.save()
+            return redirect('portfolio:uc', uc_id = uc.id)
+    else:
+        form = UCForm(instance=uc)
+        
+    context = {'form': form, 'uc':uc}
+    return render(request, 'portfolio/edit_uc.html', context)
+
+@login_required
+def delete_uc_view(request, uc_id):
+
+    uc = UC.objects.get(id = uc_id)
+    course_id = uc.course.id
+    uc.delete()
+    return redirect('portfolio:course', course_id = course_id)

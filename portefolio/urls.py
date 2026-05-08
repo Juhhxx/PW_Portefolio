@@ -21,4 +21,9 @@ urlpatterns = [
     path('education/workshop/new/', views.new_workshop_view, name="new_workshop"),
     path('education/workshop/delete/<int:workshop_id>/', views.delete_workshop_view, name="delete_workshop"),
     path('education/workshop/edit/<int:workshop_id>/', views.edit_workshop_view, name="edit_workshop"),
+
+    path('education/course/uc/<int:uc_id>/', views.uc_view, name="uc"),
+    path('education/course/uc/new/', views.new_uc_view, name="new_uc"),
+    path('education/course/uc/delete/<int:uc_id>/', views.delete_uc_view, name="delete_uc"),
+    path('education/course/uc/edit/<int:uc_id>/', views.edit_uc_view, name="edit_uc"),
 ]
