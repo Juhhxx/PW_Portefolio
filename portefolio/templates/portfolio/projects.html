@@ -1,0 +1,46 @@
+{% extends 'portfolio/layout.html' %}
+
+{% block content %}
+<style>
+    li h4{
+        margin: 5 0 5 0;
+    }
+    li h5{
+        margin: 5 0 15 0;
+    }
+</style>
+
+<h2>Projects</h2>
+    <p> 
+        These are the projects I have worked on.
+    </p>
+
+    <h3>Projects</h3>
+    <ul>
+        {% for project in projects %}
+            <li>
+                <h4>{{ project }} - {{ project.uc }}</h4>
+                <p>{{ project.description }}</p>
+                <a href="#">
+                    <button>See More</button>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+    <h3>TFCs</h3>
+    <ul>
+        {% for tfc in TFCs %}
+            <li>
+                <h4>{{ tfc }}</h4>
+                <h5>{{ ttfc.year }}</h5>
+                <p>{{ tfc.description }}</p>
+                <a href="#">
+                    <button>See More</button>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

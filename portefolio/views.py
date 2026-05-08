@@ -18,6 +18,16 @@ def educations_view(request):
 
     return render(request, 'portfolio/education.html', context)
 
+def projects_view(request):
+
+    context = {
+        'projects': Project.objects.all(),
+        'TFCs': TFC.objects.all(),
+        'gestor': request.user.groups.filter(name='gestor_portefolio').exists(),
+    }
+
+    return render(request, 'portfolio/projects.html', context)
+
 # Course views
 
 def course_view(request, course_id):

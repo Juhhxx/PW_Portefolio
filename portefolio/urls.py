@@ -26,4 +26,6 @@ urlpatterns = [
     path('education/course/uc/new/', views.new_uc_view, name="new_uc"),
     path('education/course/uc/delete/<int:uc_id>/', views.delete_uc_view, name="delete_uc"),
     path('education/course/uc/edit/<int:uc_id>/', views.edit_uc_view, name="edit_uc"),
+
+    path('projects/', views.projects_view, name='projects'),
 ]
