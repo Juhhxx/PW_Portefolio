@@ -106,10 +106,10 @@ class UC(models.Model):
     program = models.TextField(default=' ')
     objectives = models.TextField(default=' ')
     
-    teachers = models.ManyToManyField(Teacher, related_name='ucs')
+    teachers = models.ManyToManyField(Teacher, related_name='ucs', blank=True)
 
     technologies = models.ManyToManyField(Technology, related_name='ucs', blank=True)
-    courses = models.ManyToManyField(Course, related_name='ucs')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='ucs')
     image = models.ImageField(upload_to='uc_images/', blank=True, null=True)
     
     def __str__(self):

@@ -48,8 +48,8 @@ admin.site.register(School, SchoolAdmin)
 class UCAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_display = ['name']
-    list_filter = ['courses']
-    filter_horizontal = ['teachers', 'technologies', 'courses']
+    list_filter = ['course']
+    filter_horizontal = ['teachers', 'technologies']
     inlines = [ProjectInline]
     
 admin.site.register(UC, UCAdmin)
@@ -58,7 +58,7 @@ admin.site.register(UC, UCAdmin)
 class TeacherAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_display = ['name', 'about']
-    list_filter = ['ucs', 'ucs__courses']
+    list_filter = ['ucs', 'ucs__course']
 
 admin.site.register(Teacher, TeacherAdmin)
 
