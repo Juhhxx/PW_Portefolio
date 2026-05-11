@@ -306,3 +306,62 @@ def delete_project_view(request, project_id):
     course_id = project.course.id
     project.delete()
     return redirect('portfolio:course', course_id = course_id)
+
+# Technology views
+
+def technology_view(request, technology_id):
+
+    context = {
+        'technology': Technology.objects.get(id = technology_id),
+        'gestor': request.user.groups.filter(name='gestor_portefolio').exists(),
+    }
+
+    return render(request, 'portfolio/technology.html', context)
+
+@login_required
+def new_technology_project_view(request, project_id):
+
+    form = TechnologyForm(request.POST or None, request.FILES)
+    if form.is_valid():
+        technology = form.save()
+        project = Project.objects.get(id = project_id)
+        project.technologies.add(technology)
+        return redirect('portfolio:project', project_id = project_id)
+    
+    context = {'form': form}
+    return render(request, 'portfolio/new_technology.html', context)
+
+@login_required
+def new_technology_tfc_view(request, tfc_id):
+
+    form = TechnologyForm(request.POST or None, request.FILES)
+    if form.is_valid():
+        form.save()
+        return redirect('portfolio:technologys')
+    
+    context = {'form': form}
+    return render(request, 'portfolio/new_technology.html', context)
+
+@login_required
+def edit_technology_view(request, technology_id):
+
+    technology = Technology.objects.get(id = technology_id)
+    
+    if request.POST:
+        form = TechnologyForm(request.POST or None, request.FILES, instance=technology)
+        if form.is_valid():
+            form.save()
+            return redirect('portfolio:technology', technology_id = technology.id)
+    else:
+        form = TechnologyForm(instance=technology)
+        
+    context = {'form': form, 'technology':technology}
+    return render(request, 'portfolio/edit_technology.html', context)
+
+@login_required
+def delete_technology_view(request, technology_id):
+
+    technology = Technology.objects.get(id = technology_id)
+    course_id = technology.course.id
+    technology.delete()
+    return redirect('portfolio:course', course_id = course_id)

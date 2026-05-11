@@ -1,6 +1,16 @@
 {% extends 'portfolio/layout.html' %}
 
 {% block content %}
+<style>
+    p img {
+        vertical-align: middle;
+        padding: 10px;
+    }
+    li p {
+        margin: 0 0 0 0;
+    }
+</style>
+
 <h2>{{ project }}</h2>
 <p>{{ project.uc }}</p>
 
@@ -32,10 +42,26 @@
     {% for tech in project.technologies.all %}
         <li>
             <p>
-                <img src="{{ tech.logo.url }}" width="25px">   {{ tech }}
+                <img src="{{ tech.logo.url }}" width="25px"> - {{ tech }} (<a href="{{ tech.link }}">{{ tech.link }}</a>)
             </p>
+            <a href="{% url 'portfolio:technology' tech.id %}">
+               <button>See More</button>
+            </a>
+            {% if gestor %}
+                <a href="{% url 'portfolio:edit_technology' tech.id %}">
+                    <button>Edit Technology</button>
+                </a>
+                <a href="{% url 'portfolio:delete_technology' tech.id %}">
+                    <button>Delete Technology</button>
+                </a>
+            {% endif %}
         </li>
     {% endfor %}
+    {% if gestor %}
+        <a href="{% url 'portfolio:new_technology' project.id %}">
+            <button>Add Technology</button>
+        </a>
+    {% endif %}
 </ul>
 
 {% if gestor %}

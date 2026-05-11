@@ -35,9 +35,11 @@
             </li>
         {% endfor %}
     </ul>
-    <a href="{% url 'portfolio:new_project' %}">
-        <button>See More</button>
-    </a>
+        {% if gestor %}
+        <a href="{% url 'portfolio:new_project' %}">
+            <button>Add Project</button>
+        </a>
+    {% endif %}
 
 
     <h3>TFCs</h3>

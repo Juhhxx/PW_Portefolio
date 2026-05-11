@@ -1,0 +1,29 @@
+{% extends 'portfolio/layout.html' %}
+
+{% block content %}
+<h2>{{ technology }} - Level: {{ technology.get_level_display }}</h2>
+
+{% if technology.logo %}
+    <img src='{{ technology.logo.url }}' width="100px">
+{% endif %}
+
+{% if technology.link %}
+    <p>Link: <a href="{{ technology.link }}">{{ technology.link }}</a></p>
+{% endif %}
+
+<h4>Description</h4>
+<p>{{ technology.description }}</p>
+
+<h4>Annotations</h4>
+<p>{{ technology.annotations }}</p>
+
+{% if gestor %}
+    <a href="{% url 'portfolio:edit_technology' technology.id %}">
+        <button>Edit Technology</button>
+    </a>
+    <a href="{% url 'portfolio:delete_technology' technology.id %}">
+        <button>Delete Technology</button>
+    </a>
+{% endif %}
+
+{% endblock %}

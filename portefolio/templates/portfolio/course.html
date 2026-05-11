@@ -46,12 +46,12 @@
             {% endif %}
         </li>
     {% endfor %}
+    {% if gestor %}
+        <a href="{% url 'portfolio:new_uc' %}">
+            <button>Add UC</button>
+        </a>
+    {% endif %}
 </ul>
-{% if gestor %}
-    <a href="{% url 'portfolio:new_uc' %}">
-        <button>Add UC</button>
-    </a>
-{% endif %}
 
 {% if gestor %}
     <a href="{% url 'portfolio:edit_course' course.id %}">
