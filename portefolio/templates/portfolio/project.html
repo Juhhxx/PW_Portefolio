@@ -1,0 +1,50 @@
+{% extends 'portfolio/layout.html' %}
+
+{% block content %}
+<h2>{{ project }}</h2>
+<p>{{ project.uc }}</p>
+
+{% if project.image %}
+    <h4>Image</h4>
+    <img src='{{ project.image.url }}' width="300px">
+{% endif %}
+
+{% if project.video %}
+    <p>Video: <a href="{{ project.video }}">{{ project.video }}</a></p>
+{% endif %}
+
+{% if project.link %}
+    <p>Link: <a href="{{ project.link }}">{{ project.link }}</a></p>
+{% endif %}
+
+{% if project.repository %}
+    <p>Repository: <a href="{{ project.repository }}">{{ project.repository }}</a></p>
+{% endif %}
+
+<h4>Description</h4>
+<p>{{ project.description }}</p>
+
+<h4>Applied Concepts</h4>
+<p>{{ project.applied_concept }}</p>
+
+<h4>Technologies Used</h4>
+<ul>
+    {% for tech in project.technologies.all %}
+        <li>
+            <p>
+                <img src="{{ tech.logo.url }}" width="25px">   {{ tech }}
+            </p>
+        </li>
+    {% endfor %}
+</ul>
+
+{% if gestor %}
+    <a href="{% url 'portfolio:edit_project' project.id %}">
+        <button>Edit Project</button>
+    </a>
+    <a href="{% url 'portfolio:delete_project' project.id %}">
+        <button>Delete Project</button>
+    </a>
+{% endif %}
+
+{% endblock %}

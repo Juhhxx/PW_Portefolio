@@ -21,12 +21,23 @@
             <li>
                 <h4>{{ project }} - {{ project.uc }}</h4>
                 <p>{{ project.description }}</p>
-                <a href="#">
+                <a href="{% url 'portfolio:project' project.id %}">
                     <button>See More</button>
                 </a>
+                {% if gestor %}
+                    <a href="{% url 'portfolio:edit_project' project.id %}">
+                        <button>Edit Project</button>
+                    </a>
+                    <a href="{% url 'portfolio:delete_project' project.id %}">
+                        <button>Delete Project</button>
+                    </a>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
+    <a href="{% url 'portfolio:new_project' %}">
+        <button>See More</button>
+    </a>
 
 
     <h3>TFCs</h3>

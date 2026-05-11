@@ -222,7 +222,7 @@ def teacher_view(request, teacher_id):
         'gestor': request.user.groups.filter(name='gestor_portefolio').exists(),
     }
 
-    return render(request, 'portfolio/Teacher.html', context)
+    return render(request, 'portfolio/teacher.html', context)
 
 @login_required
 def new_teacher_view(request, uc_id):
@@ -235,7 +235,7 @@ def new_teacher_view(request, uc_id):
         return redirect('portfolio:uc', uc_id = uc_id)
     
     context = {'form': form}
-    return render(request, 'portfolio/new_Teacher.html', context)
+    return render(request, 'portfolio/new_teacher.html', context)
 
 @login_required
 def edit_teacher_view(request, teacher_id):
@@ -251,7 +251,7 @@ def edit_teacher_view(request, teacher_id):
         form = TeacherForm(instance=teacher)
         
     context = {'form': form, 'teacher':teacher}
-    return render(request, 'portfolio/edit_Teacher.html', context)
+    return render(request, 'portfolio/edit_teacher.html', context)
 
 @login_required
 def delete_teacher_view(request, teacher_id):
@@ -259,4 +259,50 @@ def delete_teacher_view(request, teacher_id):
     teacher = Teacher.objects.get(id = teacher_id)
     course_id = teacher.course.id
     teacher.delete()
+    return redirect('portfolio:course', course_id = course_id)
+
+# Project views
+
+def project_view(request, project_id):
+
+    context = {
+        'project': Project.objects.get(id = project_id),
+        'gestor': request.user.groups.filter(name='gestor_portefolio').exists(),
+    }
+
+    return render(request, 'portfolio/project.html', context)
+
+@login_required
+def new_project_view(request):
+
+    form = ProjectForm(request.POST or None, request.FILES)
+    if form.is_valid():
+        form.save()
+        return redirect('portfolio:projects')
+    
+    context = {'form': form}
+    return render(request, 'portfolio/new_project.html', context)
+
+@login_required
+def edit_project_view(request, project_id):
+
+    project = Project.objects.get(id = project_id)
+    
+    if request.POST:
+        form = ProjectForm(request.POST or None, request.FILES, instance=project)
+        if form.is_valid():
+            form.save()
+            return redirect('portfolio:project', project_id = project.id)
+    else:
+        form = ProjectForm(instance=project)
+        
+    context = {'form': form, 'project':project}
+    return render(request, 'portfolio/edit_project.html', context)
+
+@login_required
+def delete_project_view(request, project_id):
+
+    project = Project.objects.get(id = project_id)
+    course_id = project.course.id
+    project.delete()
     return redirect('portfolio:course', course_id = course_id)

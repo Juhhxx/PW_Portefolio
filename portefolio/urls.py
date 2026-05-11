@@ -28,9 +28,15 @@ urlpatterns = [
     path('education/course/uc/edit/<int:uc_id>/', views.edit_uc_view, name="edit_uc"),
 
     path('education/course/teacher/<int:teacher_id>/', views.teacher_view, name="teacher"),
-    path('education/course/teacher/new/<int:uc_id>', views.new_teacher_view, name="new_teacher"),
+    path('education/course/teacher/new/<int:uc_id>/', views.new_teacher_view, name="new_teacher"),
     path('education/course/teacher/delete/<int:teacher_id>/', views.delete_teacher_view, name="delete_teacher"),
     path('education/course/teacher/edit/<int:teacher_id>/', views.edit_teacher_view, name="edit_teacher"),
 
     path('projects/', views.projects_view, name='projects'),
+
+    path('projects/project/<int:project_id>/', views.project_view, name="project"),
+    path('projects/project/new/', views.new_project_view, name="new_project"),
+    path('projects/project/delete/<int:project_id>/', views.delete_project_view, name="delete_project"),
+    path('projects/project/edit/<int:project_id>/', views.edit_project_view, name="edit_project"),
+
 ]
