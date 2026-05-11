@@ -1,8 +1,14 @@
 {% extends 'portfolio/layout.html' %}
 
 {% block content %}
-<h2>{{ uc }}</h2>
-<p>{{ uc.year }}º year {{ uc.semester }} semester</p>
+<style>
+    li h4{
+        margin: 5 0 5 0;
+    }
+</style>
+
+<h2>{{ uc }} - <a href="{% url 'portfolio:course' uc.course.id %}">{{ uc.course }}</a></h2>
+<p>{{ uc.year }}º year {{ uc.semester }}º semester</p>
 
 {% if uc.image %}
     <h4>Image</h4>
@@ -22,10 +28,27 @@
 <ul>
     {% for teacher in uc.teachers.all %}
         <li>
-            <h4>{{ teacher }}</h4>
+            <h4>{{ teacher }} - {{ teacher.email }}</h4>
+            <a href="{% url 'portfolio:teacher' teacher.id %}">
+                <button>See More</button>
+            </a>
+            {% if gestor %}
+            <a href="{% url 'portfolio:edit_teacher' teacher.id %}">
+                <button>Edit Teacher</button>
+            </a>
+            <a href="{% url 'portfolio:delete_teacher' teacher.id %}">
+                <button>Delete Teacher</button>
+            </a>
+        {% endif %}
         </li>
     {% endfor %}
+    {% if gestor %}
+    <a href="{% url 'portfolio:new_teacher' uc.id %}">
+        <button>Add Teacher</button>
+    </a>
+{% endif %}
 </ul>
+
 
 {% if gestor %}
     <a href="{% url 'portfolio:edit_uc' uc.id %}">

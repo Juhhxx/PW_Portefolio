@@ -33,3 +33,9 @@ class UCForm(forms.ModelForm):
     class Meta:
         model = UC
         fields = '__all__'
+
+class TeacherForm(forms.ModelForm):
+
+    class Meta:
+        model = Teacher
+        fields = '__all__'

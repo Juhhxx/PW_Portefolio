@@ -27,5 +27,10 @@ urlpatterns = [
     path('education/course/uc/delete/<int:uc_id>/', views.delete_uc_view, name="delete_uc"),
     path('education/course/uc/edit/<int:uc_id>/', views.edit_uc_view, name="edit_uc"),
 
+    path('education/course/teacher/<int:teacher_id>/', views.teacher_view, name="teacher"),
+    path('education/course/teacher/new/<int:uc_id>', views.new_teacher_view, name="new_teacher"),
+    path('education/course/teacher/delete/<int:teacher_id>/', views.delete_teacher_view, name="delete_teacher"),
+    path('education/course/teacher/edit/<int:teacher_id>/', views.edit_teacher_view, name="edit_teacher"),
+
     path('projects/', views.projects_view, name='projects'),
 ]

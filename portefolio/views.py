@@ -32,8 +32,12 @@ def projects_view(request):
 
 def course_view(request, course_id):
 
+    course = Course.objects.get(id = course_id)
+    ucs = course.ucs.all().order_by('year', 'semester')
+
     context = { 
-        'course': Course.objects.get(id = course_id),
+        'course': course,
+        'ucs': ucs,
         'gestor': request.user.groups.filter(name='gestor_portefolio').exists(),
     }
 
@@ -207,4 +211,52 @@ def delete_uc_view(request, uc_id):
     uc = UC.objects.get(id = uc_id)
     course_id = uc.course.id
     uc.delete()
+    return redirect('portfolio:course', course_id = course_id)
+
+# Teacher views
+
+def teacher_view(request, teacher_id):
+
+    context = {
+        'teacher': Teacher.objects.get(id = teacher_id),
+        'gestor': request.user.groups.filter(name='gestor_portefolio').exists(),
+    }
+
+    return render(request, 'portfolio/Teacher.html', context)
+
+@login_required
+def new_teacher_view(request, uc_id):
+
+    form = TeacherForm(request.POST or None, request.FILES)
+    if form.is_valid():
+        teacher = form.save()
+        uc = UC.objects.get(id=uc_id)
+        uc.teachers.add(teacher)
+        return redirect('portfolio:uc', uc_id = uc_id)
+    
+    context = {'form': form}
+    return render(request, 'portfolio/new_Teacher.html', context)
+
+@login_required
+def edit_teacher_view(request, teacher_id):
+
+    teacher = Teacher.objects.get(id = teacher_id)
+    
+    if request.POST:
+        form = TeacherForm(request.POST or None, request.FILES, instance=teacher)
+        if form.is_valid():
+            form.save()
+            return redirect('portfolio:teacher', teacher_id = teacher.id)
+    else:
+        form = TeacherForm(instance=teacher)
+        
+    context = {'form': form, 'teacher':teacher}
+    return render(request, 'portfolio/edit_Teacher.html', context)
+
+@login_required
+def delete_teacher_view(request, teacher_id):
+
+    teacher = Teacher.objects.get(id = teacher_id)
+    course_id = teacher.course.id
+    teacher.delete()
     return redirect('portfolio:course', course_id = course_id)

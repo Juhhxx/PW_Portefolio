@@ -1,0 +1,32 @@
+{% extends 'portfolio/layout.html' %}
+
+{% block content %}
+<h2>{{ teacher }}</h2>
+
+{% if teacher.photo %}
+    <h4>Photo</h4>
+    <img src='{{ teacher.photo.url }}' width="300px">
+{% endif %}
+
+<p>Email: {{ teacher.email }}</p>
+<p>About: <a href='{{ teacher.about }}'>{{ teacher.about }}</a></p>
+
+<h4>Classes</h4>
+<ul>
+    {% for uc in teacher.ucs.all %}
+        <li>
+            <h4>{{ uc }}</h4>
+        </li>
+    {% endfor %}
+</ul>
+
+{% if gestor %}
+    <a href="{% url 'portfolio:edit_teacher' teacher.id %}">
+        <button>Edit Teacher</button>
+    </a>
+    <a href="{% url 'portfolio:delete_teacher' teacher.id %}">
+        <button>Delete Teacher</button>
+    </a>
+{% endif %}
+
+{% endblock %}

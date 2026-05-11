@@ -30,7 +30,7 @@
 
 <h4>UCs</h4>
 <ul>
-    {% for uc in course.ucs.all %}
+    {% for uc in ucs %}
         <li>
             <h4>{{ uc }} - {{ uc.year }}º year {{ uc.semester }}º semester</h4>
             <a href="{% url 'portfolio:uc' uc.id %}">
