@@ -1,7 +1,7 @@
 {% extends 'portfolio/layout.html' %}
 
 {% block content %}
-    <h3>Edit Projecte</h3>
+    <h3>Edit Project</h3>
     
     <form action="{% url 'portfolio:edit_project' project.id %}" method="post" enctype='multipart/form-data'>
       {% csrf_token %}

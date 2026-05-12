@@ -16,10 +16,11 @@
 <ul>
     {% for skill in skills %}
         <li>
-            <h4>{{ skill}} - {{ skills.get_level_display }}</h4>
+            <h4>{{ skill }} - Level: {{ skill.get_level_display }}</h4>
             <nav>
+                Related technologies:
                 {% for tech in skill.technologies.all %}
-                    <img src="{{ tech.logo.url }}" width="25px">
+                    <a href="{% url 'portfolio:technology' tech.id %}"><img src="{{ tech.logo.url }}" width="25px"></a>
                 {% endfor %}
             </nav>
             <a href="{% url 'portfolio:skill' skill.id %}">

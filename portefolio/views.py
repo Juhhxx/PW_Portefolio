@@ -37,6 +37,10 @@ def skills_view(request):
 
     return render(request, 'portfolio/skills.html', context)
 
+def makingof_view(request):
+
+    return render(request, 'portfolio/makingof.html')
+
 # Course views
 
 def course_view(request, course_id):
@@ -276,6 +280,13 @@ def edit_teacher_view(request, teacher_id):
     return render(request, 'portfolio/edit_teacher.html', context)
 
 @login_required
+def delete_teacher_view(request, teacher_id):
+
+    teacher = Teacher.objects.get(id = teacher_id)
+    teacher.delete()
+    return redirect('portfolio:educations')
+
+@login_required
 def delete_teacher_course_view(request, teacher_id, course_id):
 
     teacher = Teacher.objects.get(id = teacher_id)
@@ -307,6 +318,19 @@ def new_project_view(request):
     if form.is_valid():
         form.save()
         return redirect('portfolio:projects')
+    
+    context = {'form': form}
+    return render(request, 'portfolio/new_project.html', context)
+
+@login_required
+def new_project_skill_view(request, skill_id):
+
+    form = ProjectForm(request.POST or None, request.FILES)
+    if form.is_valid():
+        project = form.save()
+        skill = Skill.objects.get(id = skill_id)
+        skill.projects.add(skill)
+        return redirect('portfolio:skill', skill_id = skill_id)
     
     context = {'form': form}
     return render(request, 'portfolio/new_project.html', context)
@@ -351,6 +375,19 @@ def new_tfc_view(request):
     form = TFCForm(request.POST or None, request.FILES)
     if form.is_valid():
         form.save()
+        return redirect('portfolio:skill', skill_id = skill_id)
+    
+    context = {'form': form}
+    return render(request, 'portfolio/new_tfc.html', context)
+
+@login_required
+def new_tfc_skill_view(request, skill_id):
+
+    form = TFCForm(request.POST or None, request.FILES)
+    if form.is_valid():
+        tfc = form.save()
+        skill = Skill.objects.get(id = skill_id)
+        skill.tfcs.add(tfc)
         return redirect('portfolio:tfcs')
     
     context = {'form': form}
@@ -433,6 +470,13 @@ def edit_technology_view(request, technology_id):
     return render(request, 'portfolio/edit_technology.html', context)
 
 @login_required
+def delete_technology_view(request, technology_id):
+
+    technology = Technology.objects.get(id = technology_id)
+    technology.delete()
+    return redirect('portfolio:projects')
+
+@login_required
 def delete_technology_project_view(request, technology_id, project_id):
 
     technology = Technology.objects.get(id = technology_id)
@@ -451,11 +495,9 @@ def delete_technology_tfc_view(request, technology_id, tfc_id):
 def skill_view(request, skill_id):
 
     skill = Skill.objects.get(id = skill_id)
-    ucs = skill.ucs.all().order_by('year', 'semester')
 
     context = { 
         'skill': skill,
-        'ucs': ucs,
         'gestor': request.user.groups.filter(name='gestor_portefolio').exists(),
     }
 
@@ -493,4 +535,4 @@ def delete_skill_view(request, skill_id):
 
     skill = Skill.objects.get(id = skill_id)
     skill.delete()
-    return redirect('portfolio:educations')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+    return redirect('portfolio:skills')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             

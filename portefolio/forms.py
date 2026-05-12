@@ -57,3 +57,9 @@ class TechnologyForm(forms.ModelForm):
     class Meta:
         model = Technology
         fields = '__all__'
+        
+class SkillForm(forms.ModelForm):
+
+    class Meta:
+        model = Skill
+        fields = '__all__'

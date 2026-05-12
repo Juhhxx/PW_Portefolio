@@ -1,0 +1,89 @@
+{% extends 'portfolio/layout.html' %}
+
+{% block content %}
+<style>
+    nav img {
+        vertical-align: middle;
+        padding: 10px;
+    }
+    li p {
+        margin: 0 0 0 0;
+    }
+</style>
+
+<h2>{{ skill }} - Level: {{ skill.get_level_display }}</h2>
+
+<h4>Description</h4>
+<p>{{ skill.description }}</p>
+
+<nav>
+Related technologies:
+{% for tech in skill.technologies.all %}
+    <a href="{% url 'portfolio:technology' tech.id %}"><img src="{{ tech.logo.url }}" width="25px"></a>
+{% endfor %}
+</nav>
+
+<h3>Projects</h3>
+<ul>
+    {% for project in skill.projects.all %}
+        <li>
+            <h4>{{ project }} - {{ project.uc }}</h4>
+            <p>{{ project.description }}</p>
+            <a href="{% url 'portfolio:project' project.id %}">
+                <button>See More</button>
+            </a>
+            {% if gestor %}
+                <a href="{% url 'portfolio:edit_project' project.id %}">
+                    <button>Edit Project</button>
+                </a>
+                <a href="{% url 'portfolio:delete_project' project.id %}">
+                    <button>Delete Project</button>
+                </a>
+            {% endif %}
+        </li>
+    {% endfor %}
+    {% if gestor %}
+        <a href="{% url 'portfolio:new_project_skill' skill.id %}">
+            <button>Add Project</button>
+        </a>
+    {% endif %}
+</ul>
+
+<h3>TFCs</h3>
+<ul>
+    {% for tfc in skill.tfcs.all %}
+        <li>
+            <h4>{{ tfc }}</h4>
+            <h5>{{ ttfc.year }}</h5>
+            <p>{{ tfc.description }}</p>
+            <a href="{% url 'portfolio:tfc' tfc.id %}">
+                <button>See More</button>
+            </a>
+            {% if gestor %}
+                <a href="{% url 'portfolio:edit_tfc' tfc.id %}">
+                    <button>Edit TFC</button>
+                </a>
+                <a href="{% url 'portfolio:delete_tfc' tfc.id %}">
+                    <button>Delete TFC</button>
+                </a>
+            {% endif %}
+        </li>
+    {% endfor %}
+    {% if gestor %}
+        <a href="{% url 'portfolio:new_tfc_skill' skill.id %}">
+            <button>Add TFC</button>
+        </a>
+    {% endif %}
+</ul>
+
+
+{% if gestor %}
+    <a href="{% url 'portfolio:edit_skill' skill.id %}">
+        <button>Edit Skill</button>
+    </a>
+    <a href="{% url 'portfolio:delete_skill' skill.id %}">
+        <button>Delete Skill</button>
+    </a>
+{% endif %}
+
+{% endblock %}
