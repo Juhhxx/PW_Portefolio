@@ -45,6 +45,12 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = '__all__'
+    
+class TFCForm(forms.ModelForm):
+
+    class Meta:
+        model = TFC
+        fields = '__all__'
         
 class TechnologyForm(forms.ModelForm):
 

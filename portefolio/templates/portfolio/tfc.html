@@ -1,0 +1,94 @@
+{% extends 'portfolio/layout.html' %}
+
+{% block content %}
+<style>
+    p img {
+        vertical-align: middle;
+        padding: 10px;
+    }
+    li p {
+        margin: 0 0 0 0;
+    }
+</style>
+
+<h2>{{ tfc }} - Rating: {{ tfc.rating }}/10</h2>
+<p>{{ tfc.year }}</p>
+
+{% if tfc.image %}
+    <h4>Image</h4>
+    <img src='{{ tfc.image.url }}' width="300px">
+{% endif %}
+
+{% if tfc.link %}
+    <p>Link: <a href="{{ tfc.link }}">{{ tfc.link }}</a></p>
+{% endif %}
+
+{% if tfc.pdf %}
+    <p>PDF: <a href="{{ tfc.pdf }}">{{ pdf.repository }}</a></p>
+{% endif %}
+
+<h4>Description</h4>
+<p>{{ tfc.description }}</p>
+
+<h4>Supervisors</h4>
+<ul>
+    {% for teacher in tfc.supervisors.all %}
+        <li>
+            <h4>{{ teacher }} - {{ teacher.email }}</h4>
+            <a href="{% url 'portfolio:teacher' teacher.id %}">
+                <button>See More</button>
+            </a>
+            {% if gestor %}
+            <a href="{% url 'portfolio:edit_teacher' teacher.id %}">
+                <button>Edit Supervisor</button>
+            </a>
+            <a href="{% url 'portfolio:delete_teacher_tfc' tfc.id teacher.id %}">
+                <button>Delete Supervisor</button>
+            </a>
+        {% endif %}
+        </li>
+    {% endfor %}
+    {% if gestor %}
+    <a href="{% url 'portfolio:new_teacher' tfc.id %}">
+        <button>Add Supervisor</button>
+    </a>
+{% endif %}
+</ul>
+
+<h4>Technologies Used</h4>
+<ul>
+    {% for tech in tfc.technologies.all %}
+        <li>
+            <p>
+                <img src="{{ tech.logo.url }}" width="25px"> - {{ tech }} (<a href="{{ tech.link }}">{{ tech.link }}</a>)
+            </p>
+            <a href="{% url 'portfolio:technology' tech.id %}">
+               <button>See More</button>
+            </a>
+            {% if gestor %}
+                <a href="{% url 'portfolio:edit_technology' tech.id %}">
+                    <button>Edit Technology</button>
+                </a>
+                <a href="{% url 'portfolio:delete_technology_tfc' tfc.id tech.id %}">
+                    <button>Delete Technology</button>
+                </a>
+            {% endif %}
+        </li>
+    {% endfor %}
+    {% if gestor %}
+        <a href="{% url 'portfolio:new_technology_tfc' tfc.id %}">
+            <button>Add Technology</button>
+        </a>
+    {% endif %}
+</ul>
+
+{% if gestor %}
+    <a href="{% url 'portfolio:edit_tfc' tfc.id %}">
+        <button>Edit TFC</button>
+    </a>
+    <a href="{% url 'portfolio:delete_tfc' tfc.id %}">
+        <button>Delete TFC</button>
+    </a>
+{% endif %}
+
+{% endblock %}

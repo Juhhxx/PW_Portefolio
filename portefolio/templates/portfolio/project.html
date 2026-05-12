@@ -51,14 +51,14 @@
                 <a href="{% url 'portfolio:edit_technology' tech.id %}">
                     <button>Edit Technology</button>
                 </a>
-                <a href="{% url 'portfolio:delete_technology' tech.id %}">
+                <a href="{% url 'portfolio:delete_technology_project' project.id tech.id %}">
                     <button>Delete Technology</button>
                 </a>
             {% endif %}
         </li>
     {% endfor %}
     {% if gestor %}
-        <a href="{% url 'portfolio:new_technology' project.id %}">
+        <a href="{% url 'portfolio:new_technology_project' project.id %}">
             <button>Add Technology</button>
         </a>
     {% endif %}

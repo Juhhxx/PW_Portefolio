@@ -35,7 +35,7 @@
             </li>
         {% endfor %}
     </ul>
-        {% if gestor %}
+    {% if gestor %}
         <a href="{% url 'portfolio:new_project' %}">
             <button>Add Project</button>
         </a>
@@ -49,11 +49,24 @@
                 <h4>{{ tfc }}</h4>
                 <h5>{{ ttfc.year }}</h5>
                 <p>{{ tfc.description }}</p>
-                <a href="#">
+                <a href="{% url 'portfolio:tfc' tfc.id %}">
                     <button>See More</button>
                 </a>
+                {% if gestor %}
+                    <a href="{% url 'portfolio:edit_tfc' tfc.id %}">
+                        <button>Edit TFC</button>
+                    </a>
+                    <a href="{% url 'portfolio:delete_tfc' tfc.id %}">
+                        <button>Delete TFC</button>
+                    </a>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
+    {% if gestor %}
+        <a href="{% url 'portfolio:new_tfc' %}">
+            <button>Add TFC</button>
+        </a>
+    {% endif %}
 
 {% endblock %}

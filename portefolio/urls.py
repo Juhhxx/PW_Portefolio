@@ -28,8 +28,10 @@ urlpatterns = [
     path('education/course/uc/edit/<int:uc_id>/', views.edit_uc_view, name="edit_uc"),
 
     path('education/course/teacher/<int:teacher_id>/', views.teacher_view, name="teacher"),
-    path('education/course/teacher/new/<int:uc_id>/', views.new_teacher_view, name="new_teacher"),
-    path('education/course/teacher/delete/<int:teacher_id>/', views.delete_teacher_view, name="delete_teacher"),
+    path('education/course/teacher/new/<int:uc_id>/', views.new_teacher_uc_view, name="new_teacher"),
+    path('education/tfc/teacher/new/<int:tfc_id>/', views.new_teacher_tfc_view, name="new_teacher"),
+    path('education/course/<int:course_id>/teacher/delete/<int:teacher_id>/', views.delete_teacher_course_view, name="delete_teacher_course"),
+    path('projects/tfc/<int:tfc_id>/teacher/delete/<int:teacher_id>/', views.delete_teacher_tfc_view, name="delete_teacher_tfc"),
     path('education/course/teacher/edit/<int:teacher_id>/', views.edit_teacher_view, name="edit_teacher"),
 
     path('projects/', views.projects_view, name='projects'),
@@ -39,9 +41,16 @@ urlpatterns = [
     path('projects/project/delete/<int:project_id>/', views.delete_project_view, name="delete_project"),
     path('projects/project/edit/<int:project_id>/', views.edit_project_view, name="edit_project"),
     
+    path('projects/tfc/<int:tfc_id>/', views.tfc_view, name="tfc"),
+    path('projects/tfc/new/', views.new_tfc_view, name="new_tfc"),
+    path('projects/tfc/delete/<int:tfc_id>/', views.delete_tfc_view, name="delete_tfc"),
+    path('projects/tfc/edit/<int:tfc_id>/', views.edit_tfc_view, name="edit_tfc"),
+    
     path('technology/<int:technology_id>/', views.technology_view, name="technology"),
-    path('technology/new/<int:project_id>', views.new_technology_project_view, name="new_technology"),
-    path('technology/delete/<int:technology_id>/', views.delete_technology_view, name="delete_technology"),
+    path('project/technology/new/<int:project_id>', views.new_technology_project_view, name="new_technology_project"),
+    path('tfc/technology/new/<int:tfc_id>', views.new_technology_tfc_view, name="new_technology_tfc"),
+    path('project/technology/delete/<int:project_id>/<int:technology_id>/', views.delete_technology_project_view, name="delete_technology_project"),
+    path('tfc/technology/delete/<int:tfc_id>/<int:technology_id>/', views.delete_technology_tfc_view, name="delete_technology_tfc"),
     path('technology/edit/<int:technology_id>/', views.edit_technology_view, name="edit_technology"),
 
 ]

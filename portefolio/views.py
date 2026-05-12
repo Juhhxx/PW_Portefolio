@@ -225,7 +225,7 @@ def teacher_view(request, teacher_id):
     return render(request, 'portfolio/teacher.html', context)
 
 @login_required
-def new_teacher_view(request, uc_id):
+def new_teacher_uc_view(request, uc_id):
 
     form = TeacherForm(request.POST or None, request.FILES)
     if form.is_valid():
@@ -233,6 +233,19 @@ def new_teacher_view(request, uc_id):
         uc = UC.objects.get(id=uc_id)
         uc.teachers.add(teacher)
         return redirect('portfolio:uc', uc_id = uc_id)
+    
+    context = {'form': form}
+    return render(request, 'portfolio/new_teacher.html', context)
+
+@login_required
+def new_teacher_tfc_view(request, tfc_id):
+
+    form = TeacherForm(request.POST or None, request.FILES)
+    if form.is_valid():
+        teacher = form.save()
+        tfc = TFC.objects.get(id=tfc_id)
+        tfc.supervisors.add(teacher)
+        return redirect('portfolio:tfc', tfc_id = tfc_id)
     
     context = {'form': form}
     return render(request, 'portfolio/new_teacher.html', context)
@@ -254,12 +267,18 @@ def edit_teacher_view(request, teacher_id):
     return render(request, 'portfolio/edit_teacher.html', context)
 
 @login_required
-def delete_teacher_view(request, teacher_id):
+def delete_teacher_course_view(request, teacher_id, course_id):
 
     teacher = Teacher.objects.get(id = teacher_id)
-    course_id = teacher.course.id
     teacher.delete()
     return redirect('portfolio:course', course_id = course_id)
+
+@login_required
+def delete_teacher_tfc_view(request, teacher_id, tfc_id):
+
+    teacher = Teacher.objects.get(id = teacher_id)
+    teacher.delete()
+    return redirect('portfolio:tfc', tfc_id = tfc_id)
 
 # Project views
 
@@ -303,9 +322,53 @@ def edit_project_view(request, project_id):
 def delete_project_view(request, project_id):
 
     project = Project.objects.get(id = project_id)
-    course_id = project.course.id
     project.delete()
-    return redirect('portfolio:course', course_id = course_id)
+    return redirect('portfolio:projects')
+
+# TFC views
+
+def tfc_view(request, tfc_id):
+
+    context = {
+        'tfc': TFC.objects.get(id = tfc_id),
+        'gestor': request.user.groups.filter(name='gestor_portefolio').exists(),
+    }
+
+    return render(request, 'portfolio/tfc.html', context)
+
+@login_required
+def new_tfc_view(request):
+
+    form = TFCForm(request.POST or None, request.FILES)
+    if form.is_valid():
+        form.save()
+        return redirect('portfolio:tfcs')
+    
+    context = {'form': form}
+    return render(request, 'portfolio/new_tfc.html', context)
+
+@login_required
+def edit_tfc_view(request, tfc_id):
+
+    tfc = TFC.objects.get(id = tfc_id)
+    
+    if request.POST:
+        form = TFCForm(request.POST or None, request.FILES, instance=tfc)
+        if form.is_valid():
+            form.save()
+            return redirect('portfolio:tfc', tfc_id = tfc.id)
+    else:
+        form = TFCForm(instance=tfc)
+        
+    context = {'form': form, 'tfc':tfc}
+    return render(request, 'portfolio/edit_tfc.html', context)
+
+@login_required
+def delete_tfc_view(request, tfc_id):
+
+    tfc = TFC.objects.get(id = tfc_id)
+    tfc.delete()
+    return redirect('portfolio:projects')
 
 # Technology views
 
@@ -336,8 +399,10 @@ def new_technology_tfc_view(request, tfc_id):
 
     form = TechnologyForm(request.POST or None, request.FILES)
     if form.is_valid():
-        form.save()
-        return redirect('portfolio:technologys')
+        technology = form.save()
+        tfc = TFC.objects.get(id = tfc_id)
+        tfc.technologies.add(technology)
+        return redirect('portfolio:tfc', tfc_id = tfc_id)
     
     context = {'form': form}
     return render(request, 'portfolio/new_technology.html', context)
@@ -359,9 +424,15 @@ def edit_technology_view(request, technology_id):
     return render(request, 'portfolio/edit_technology.html', context)
 
 @login_required
-def delete_technology_view(request, technology_id):
+def delete_technology_project_view(request, technology_id, project_id):
 
     technology = Technology.objects.get(id = technology_id)
-    course_id = technology.course.id
     technology.delete()
-    return redirect('portfolio:course', course_id = course_id)
+    return redirect('portfolio:project', project_id = project_id)
+
+@login_required
+def delete_technology_tfc_view(request, technology_id, tfc_id):
+
+    technology = Technology.objects.get(id = technology_id)
+    technology.delete()
+    return redirect('portfolio:tfc', tfc_id = tfc_id)

@@ -36,7 +36,7 @@
             <a href="{% url 'portfolio:edit_teacher' teacher.id %}">
                 <button>Edit Teacher</button>
             </a>
-            <a href="{% url 'portfolio:delete_teacher' teacher.id %}">
+            <a href="{% url 'portfolio:delete_teacher_course' uc.id teacher.id %}">
                 <button>Delete Teacher</button>
             </a>
         {% endif %}
