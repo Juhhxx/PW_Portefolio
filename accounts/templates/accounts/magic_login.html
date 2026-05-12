@@ -1,0 +1,16 @@
+{% extends 'portfolio/layout.html' %}
+
+{% block content %}
+    <h3>Login to Account via Magic Link</h3>
+    
+    {% if message %}
+      <p>WARNING: {{ message }}</p>
+    {% endif %}
+    <form action="{% url 'accounts:magic_login' %}" method="post">
+        {% csrf_token %}
+        <p>Email: <input type="email" name="email" placeholder="Your e-amil..."></p>
+        
+        <p><input type="submit"></p>
+    </form>
+    
+{% endblock %}
