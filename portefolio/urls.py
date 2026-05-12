@@ -53,4 +53,10 @@ urlpatterns = [
     path('tfc/technology/delete/<int:tfc_id>/<int:technology_id>/', views.delete_technology_tfc_view, name="delete_technology_tfc"),
     path('technology/edit/<int:technology_id>/', views.edit_technology_view, name="edit_technology"),
 
+    path('skills/', views.skills_view, name='skills'),
+    
+    path('skills/skill/<int:uc_id>/', views.skill_view, name="skill"),
+    path('skills/skill/new/', views.new_skill_view, name="new_skill"),
+    path('skills/skill/delete/<int:skill_id>/', views.delete_skill_view, name="delete_skill"),
+    path('skills/skill/edit/<int:skill_id>/', views.edit_skill_view, name="edit_skill"),
 ]

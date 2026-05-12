@@ -28,6 +28,15 @@ def projects_view(request):
 
     return render(request, 'portfolio/projects.html', context)
 
+def skills_view(request):
+
+    context = {
+        'skills': Skill.objects.all(),
+        'gestor': request.user.groups.filter(name='gestor_portefolio').exists(),
+    }
+
+    return render(request, 'portfolio/skills.html', context)
+
 # Course views
 
 def course_view(request, course_id):
@@ -436,3 +445,52 @@ def delete_technology_tfc_view(request, technology_id, tfc_id):
     technology = Technology.objects.get(id = technology_id)
     technology.delete()
     return redirect('portfolio:tfc', tfc_id = tfc_id)
+
+# Skill views
+
+def skill_view(request, skill_id):
+
+    skill = Skill.objects.get(id = skill_id)
+    ucs = skill.ucs.all().order_by('year', 'semester')
+
+    context = { 
+        'skill': skill,
+        'ucs': ucs,
+        'gestor': request.user.groups.filter(name='gestor_portefolio').exists(),
+    }
+
+    return render(request, 'portfolio/skill.html', context)
+
+@login_required
+def new_skill_view(request):
+
+    form = SkillForm(request.POST or None, request.FILES)
+    if form.is_valid():
+        form.save()
+        return redirect('portfolio:educations')
+    
+    context = {'form': form}
+    return render(request, 'portfolio/new_skill.html', context)
+
+@login_required
+def edit_skill_view(request, skill_id):
+
+    skill = Skill.objects.get(id = skill_id)
+    
+    if request.POST:
+        form = SkillForm(request.POST or None, request.FILES, instance=skill)
+        if form.is_valid():
+            form.save()
+            return redirect('portfolio:skill', skill_id = skill.id)
+    else:
+        form = SkillForm(instance=skill)
+        
+    context = {'form': form, 'skill':skill}
+    return render(request, 'portfolio/edit_skill.html', context)
+
+@login_required
+def delete_skill_view(request, skill_id):
+
+    skill = Skill.objects.get(id = skill_id)
+    skill.delete()
+    return redirect('portfolio:educations')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             

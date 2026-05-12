@@ -1,0 +1,45 @@
+{% extends 'portfolio/layout.html' %}
+
+{% block content %}
+<style>
+    nav img {
+        vertical-align: middle;
+        padding: 10px;
+    }
+    li p {
+        margin: 0 0 0 0;
+    }
+</style>
+
+<h2>Skills</h2>
+
+<ul>
+    {% for skill in skills %}
+        <li>
+            <h4>{{ skill}} - {{ skills.get_level_display }}</h4>
+            <nav>
+                {% for tech in skill.technologies.all %}
+                    <img src="{{ tech.logo.url }}" width="25px">
+                {% endfor %}
+            </nav>
+            <a href="{% url 'portfolio:skill' skill.id %}">
+                <button>See More</button>
+            </a>
+            {% if gestor %}
+                <a href="{% url 'portfolio:edit_skill' skill.id %}">
+                    <button>Edit Skill</button>
+                </a>
+                <a href="{% url 'portfolio:delete_skill' skill.id %}">
+                    <button>Delete Skill</button>
+                </a>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{% if gestor %}
+    <a href="{% url 'portfolio:new_skill' %}">
+        <button>Add Skill</button>
+    </a>
+{% endif %}
+
+{% endblock %}
