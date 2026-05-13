@@ -1,15 +1,27 @@
 import os
+import django
+
+# configure settings
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
+
+# initialize django
+django.setup()
+
+from django.conf import settings
 from django.core.files import File
-from portefolio.models import Teacher
+from portefolio.models import Technology
 
 def run():
-    for obj in Teacher.objects.all():
-        if obj.photo and obj.photo.name:   # adaptar o nome do campo (neste caso é "imagem")
-            local_path = obj.photo.path    # adequar
+    for obj in Technology.objects.all():
+        if obj.logo and obj.logo.name:   # adaptar o nome do campo (neste caso é "logom")
+            local_path = os.path.join(
+                settings.MEDIA_ROOT,
+                obj.logo.name
+            )
 
             if os.path.exists(local_path):
                 with open(local_path, 'rb') as f:
-                    obj.photo.save(                         # adequar
+                    obj.logo.save(                         # adequar
                         os.path.basename(local_path),
                         File(f),
                         save=True
