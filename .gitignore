@@ -1,3 +1,9 @@
 # ignore all virtual environment files
 /venv
 .env
+
+# vscode files
+/.vscode
+
+# python cache
+/__pycache__
