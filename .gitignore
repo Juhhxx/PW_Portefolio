@@ -3,7 +3,7 @@
 .env
 
 # vscode files
-/.vscode
+.vscode/
 
 # python cache
-/__pycache__
+__pycache__/
