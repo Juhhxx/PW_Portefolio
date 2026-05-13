@@ -11,34 +11,54 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='certification',
-            name='from_year',
-            field=models.IntegerField(validators=[django.core.validators.MinValueValidator(2000), django.core.validators.MaxValueValidator(9999)]),
+        # CERTIFICATION
+        migrations.RunSQL(
+            """
+            ALTER TABLE portefolio_certification
+            ALTER COLUMN from_year TYPE integer
+            USING EXTRACT(YEAR FROM from_year);
+            """
         ),
-        migrations.AlterField(
-            model_name='certification',
-            name='to_year',
-            field=models.IntegerField(validators=[django.core.validators.MinValueValidator(2000), django.core.validators.MaxValueValidator(9999)]),
+
+        migrations.RunSQL(
+            """
+            ALTER TABLE portefolio_certification
+            ALTER COLUMN to_year TYPE integer
+            USING EXTRACT(YEAR FROM to_year);
+            """
         ),
-        migrations.AlterField(
-            model_name='course',
-            name='from_year',
-            field=models.IntegerField(validators=[django.core.validators.MinValueValidator(2000), django.core.validators.MaxValueValidator(9999)]),
+
+        # COURSE
+        migrations.RunSQL(
+            """
+            ALTER TABLE portefolio_course
+            ALTER COLUMN from_year TYPE integer
+            USING EXTRACT(YEAR FROM from_year);
+            """
         ),
-        migrations.AlterField(
-            model_name='course',
-            name='to_year',
-            field=models.IntegerField(validators=[django.core.validators.MinValueValidator(2000), django.core.validators.MaxValueValidator(9999)]),
+
+        migrations.RunSQL(
+            """
+            ALTER TABLE portefolio_course
+            ALTER COLUMN to_year TYPE integer
+            USING EXTRACT(YEAR FROM to_year);
+            """
         ),
-        migrations.AlterField(
-            model_name='workshop',
-            name='from_year',
-            field=models.IntegerField(validators=[django.core.validators.MinValueValidator(2000), django.core.validators.MaxValueValidator(9999)]),
+
+        # WORKSHOP
+        migrations.RunSQL(
+            """
+            ALTER TABLE portefolio_workshop
+            ALTER COLUMN from_year TYPE integer
+            USING EXTRACT(YEAR FROM from_year);
+            """
         ),
-        migrations.AlterField(
-            model_name='workshop',
-            name='to_year',
-            field=models.IntegerField(validators=[django.core.validators.MinValueValidator(2000), django.core.validators.MaxValueValidator(9999)]),
+
+        migrations.RunSQL(
+            """
+            ALTER TABLE portefolio_workshop
+            ALTER COLUMN to_year TYPE integer
+            USING EXTRACT(YEAR FROM to_year);
+            """
         ),
     ]
